@@ -25,18 +25,22 @@ async function evolutionRequest(path: string, body: unknown): Promise<{ ok: bool
     });
 
     const data = await response.json().catch(() => ({}));
-    return { ok: response.ok, data };
+    if (!response.ok) {
+      throw new Error(`Evolution API erro ${response.status}: ${JSON.stringify(data)}`);
+    }
+    return { ok: true, data };
   } catch (err) {
     throw new Error(`Evolution API falhou: ${err instanceof Error ? err.message : String(err)}`);
   }
 }
 
 export async function enviarTexto(numero: string, mensagem: string) {
-  // Normaliza número para formato internacional sem + ou espaços
-  const numeroNormalizado = numero.replace(/\D/g, '');
+  let n = numero.replace(/\D/g, '');
+  // Garante DDI 55 (Brasil): números com 10-11 dígitos estão sem o código do país
+  if (n.length <= 11) n = `55${n}`;
   return evolutionRequest('/message/sendText/:instance', {
-    number: numeroNormalizado,
-    text: mensagem
+    number: n,
+    textMessage: { text: mensagem }
   });
 }
 
