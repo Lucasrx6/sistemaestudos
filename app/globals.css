@@ -53,7 +53,7 @@ header.auth-header {
   border: none !important;
   border-radius: var(--card-radius) !important;
   box-shadow: var(--card-shadow) !important;
-  background: var(--card-bg) !important;
+  background: var(--card-bg);
   transition: box-shadow var(--transition), transform var(--transition);
 }
 .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.11) !important; }
@@ -62,6 +62,11 @@ header.auth-header {
   background: transparent !important;
   border-bottom: 1px solid #f0f0f0 !important;
   border-radius: var(--card-radius) var(--card-radius) 0 0 !important;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+  color: #ffffff !important;
 }
 
 /* ─── Buttons ────────────────────────────────────────────────── */

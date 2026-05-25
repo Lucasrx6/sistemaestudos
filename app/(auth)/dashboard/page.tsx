@@ -89,7 +89,7 @@ export default function DashboardPage() {
     <main className="container py-4">
 
       {/* ── Hero / Saudação ── */}
-      <div className="card mb-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)', color: '#fff', borderRadius: '20px' }}>
+      <div className="card hero-card mb-4 overflow-hidden" style={{ borderRadius: '20px' }}>
         <div className="card-body px-4 py-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
           <div>
             <p className="mb-1 opacity-75" style={{ fontSize: '0.9rem' }}>
