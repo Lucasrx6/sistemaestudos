@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client';
 
 type Alternativa = { letra: string; texto: string };
@@ -41,12 +41,13 @@ export default function EstudarPage() {
   const [questoes, setQuestoes] = useState<Questao[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [resposta, setResposta] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // true desde o início evita flash de "sem questões"
   const [error, setError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [session, setSession] = useState<{ userId: string; token: string } | null>(null);
   const [sessionado, setSessionado] = useState(false);
   const [cardAnim, setCardAnim] = useState<'' | 'acertou' | 'errou'>('');
+  const initialFetchDone = useRef(false); // evita double-fetch do StrictMode
 
   const questaoAtual = useMemo(() => questoes[currentIndex] ?? null, [questoes, currentIndex]);
   const progresso = useMemo(
@@ -90,7 +91,10 @@ export default function EstudarPage() {
   };
 
   useEffect(() => {
-    if (session) fetchQuestoes(session.token);
+    if (!session) return;
+    if (initialFetchDone.current) return; // StrictMode dispara o effect duas vezes — ignora a segunda
+    initialFetchDone.current = true;
+    fetchQuestoes(session.token);
   }, [session]);
 
   const handleSubmit = async () => {

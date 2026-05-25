@@ -1,17 +1,37 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client';
+
+const SAVED_EMAIL_KEY = 'sistemaprova:saved_email';
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
+  const [lembrar, setLembrar] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // true enquanto verifica sessão existente
+
+  // Verifica sessão ativa e pré-preenche email salvo
+  useEffect(() => {
+    const supabase = getSupabaseClient();
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        router.replace('/dashboard');
+        return;
+      }
+      const savedEmail = localStorage.getItem(SAVED_EMAIL_KEY);
+      if (savedEmail) {
+        setEmail(savedEmail);
+        setLembrar(true);
+      }
+      setLoading(false);
+    });
+  }, [router]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,7 +41,23 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) { setError(error.message); return; }
+    if (lembrar) {
+      localStorage.setItem(SAVED_EMAIL_KEY, email);
+    } else {
+      localStorage.removeItem(SAVED_EMAIL_KEY);
+    }
     router.push('/dashboard');
+  }
+
+  if (loading) {
+    return (
+      <main style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4f46e5 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="text-center text-white">
+          <div className="spinner-border mb-3" role="status" />
+          <p style={{ opacity: 0.7 }}>Verificando sessão...</p>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -87,6 +123,21 @@ export default function LoginPage() {
                   >
                     <i className={`fas ${showPass ? 'fa-eye-slash' : 'fa-eye'}`} />
                   </button>
+                </div>
+              </div>
+
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <div className="form-check mb-0">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="lembrar"
+                    checked={lembrar}
+                    onChange={(e) => setLembrar(e.target.checked)}
+                  />
+                  <label className="form-check-label small" htmlFor="lembrar">
+                    Lembrar meu e-mail
+                  </label>
                 </div>
               </div>
 
