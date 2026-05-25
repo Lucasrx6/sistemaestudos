@@ -57,11 +57,19 @@ export default function CadastroPage() {
       })
     });
 
-    const data = await response.json();
+    let data: Record<string, unknown> = {};
+    try {
+      data = await response.json();
+    } catch {
+      setLoading(false);
+      setError('Erro de comunicação com o servidor. Verifique se o .env.local está configurado.');
+      return;
+    }
     setLoading(false);
 
     if (!response.ok) {
-      setError(data.error?.message || 'Erro ao criar conta.');
+      const msg = (data.error as { message?: string } | string | undefined);
+      setError(typeof msg === 'string' ? msg : (msg as { message?: string })?.message ?? 'Erro ao criar conta.');
       return;
     }
 
