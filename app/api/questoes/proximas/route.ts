@@ -4,7 +4,8 @@ import { selecionarQuestoes } from '@/lib/utils/selecionar-questoes';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const limit = Math.min(Math.max(Number(searchParams.get('limit') ?? 5), 1), 20);
+  const rawLimit = searchParams.get('limit');
+  const limit = rawLimit ? Math.min(Math.max(Number(rawLimit), 1), 50) : undefined;
 
   // Extrai token de autenticação do header Authorization
   const authHeader = request.headers.get('authorization');

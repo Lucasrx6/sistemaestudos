@@ -6,12 +6,15 @@ const perfilUpdateSchema = z.object({
   nome: z.string().min(2).optional(),
   telefone: z.string().optional().nullable(),
   concurso_ativo: z.string().uuid().optional().nullable(),
+  concursos_ativos: z.array(z.string().uuid()).optional(),
   preferencia_envio: z.enum(['whatsapp_direto', 'link_site', 'ambos']).optional(),
   notificacoes_ativas: z.boolean().optional(),
   horario_inicio: z.string().optional().nullable(),
   horario_fim: z.string().optional().nullable(),
   envios_por_dia: z.number().int().min(1).max(8).optional(),
-  perguntas_por_envio: z.number().int().min(1).max(10).optional()
+  perguntas_por_envio: z.number().int().min(1).max(10).optional(),
+  questoes_por_sessao: z.number().int().min(5).max(50).optional(),
+  disciplinas_selecionadas: z.array(z.string()).optional()
 });
 
 export async function GET(request: NextRequest) {
@@ -25,7 +28,7 @@ export async function GET(request: NextRequest) {
 
   const { data: usuario, error } = await supabase
     .from('usuarios')
-    .select('id, nome, email, telefone, concurso_ativo, preferencia_envio, notificacoes_ativas, horario_inicio, horario_fim, envios_por_dia, perguntas_por_envio')
+    .select('id, nome, email, telefone, concurso_ativo, concursos_ativos, preferencia_envio, notificacoes_ativas, horario_inicio, horario_fim, envios_por_dia, perguntas_por_envio, questoes_por_sessao, disciplinas_selecionadas')
     .eq('id', userData.user.id)
     .single();
 

@@ -19,7 +19,8 @@ export default function CadastroPage() {
   const [telefone, setTelefone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [concursoAtivo, setConcursoAtivo] = useState('');
+  // Melhoria 2: array de IDs de concursos selecionados (multi-select)
+  const [concursosAtivos, setConcursosAtivos] = useState<string[]>([]);
   const [preferencia, setPreferencia] = useState('ambos');
   const [horarioInicio, setHorarioInicio] = useState('08:00');
   const [horarioFim, setHorarioFim] = useState('20:00');
@@ -35,6 +36,13 @@ export default function CadastroPage() {
       .catch(() => {});
   }, []);
 
+  // Melhoria 2: toggle de concurso no array
+  const toggleConcurso = (id: string) => {
+    setConcursosAtivos((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
+    );
+  };
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
@@ -48,7 +56,8 @@ export default function CadastroPage() {
         telefone: telefone || null,
         email,
         password,
-        concurso_ativo: concursoAtivo || null,
+        // Melhoria 2: envia concursos_ativos (array) em vez de concurso_ativo (único)
+        concursos_ativos: concursosAtivos,
         preferencia_envio: preferencia,
         horario_inicio: horarioInicio,
         horario_fim: horarioFim,
@@ -92,7 +101,7 @@ export default function CadastroPage() {
                   </div>
                   <div className="col-md-6">
                     <label className="form-label" htmlFor="telefone">Telefone (WhatsApp)</label>
-                    <input id="telefone" type="tel" className="form-control" placeholder="(11) 90000-0000" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+                    <input id="telefone" type="tel" className="form-control" placeholder="(61) 90000-0000" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
                     <div className="form-text">Usado para envio de questões.</div>
                   </div>
                   <div className="col-md-6">
@@ -103,16 +112,42 @@ export default function CadastroPage() {
                     <label className="form-label" htmlFor="password">Senha</label>
                     <input id="password" type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
                   </div>
+
+                  {/* Melhoria 2: multi-select de concursos com checkboxes */}
                   <div className="col-12">
-                    <label className="form-label" htmlFor="concursoAtivo">Concurso ativo</label>
-                    <select id="concursoAtivo" className="form-select" value={concursoAtivo} onChange={(e) => setConcursoAtivo(e.target.value)}>
-                      <option value="">Selecionar concurso (opcional)</option>
-                      {concursos.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.nome} {c.banca ? `— ${c.banca}` : ''} {c.ano ? `(${c.ano})` : ''}
-                        </option>
-                      ))}
-                    </select>
+                    <label className="form-label">
+                      Provas ativas
+                      <span className="text-muted fw-normal ms-1 small">— Você pode alterar isso depois em Configurações</span>
+                    </label>
+                    {concursos.length === 0 ? (
+                      <p className="text-muted small mb-0">Nenhum concurso disponível no momento.</p>
+                    ) : (
+                      <div className="border rounded p-3 d-flex flex-column gap-2">
+                        {concursos.map((c) => (
+                          <div className="form-check mb-0" key={c.id}>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={`concurso-cad-${c.id}`}
+                              checked={concursosAtivos.includes(c.id)}
+                              onChange={() => toggleConcurso(c.id)}
+                            />
+                            <label className="form-check-label" htmlFor={`concurso-cad-${c.id}`}>
+                              {c.nome}
+                              {c.banca ? ` — ${c.banca}` : ''}
+                              {c.ano ? ` (${c.ano})` : ''}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {concursosAtivos.length > 0 && (
+                      <div className="form-text text-primary">
+                        <i className="fas fa-check-circle me-1" />
+                        {concursosAtivos.length} prova(s) selecionada(s)
+                      </div>
+                    )}
+                    <div className="form-text">Se nenhuma for selecionada, questões de qualquer concurso serão incluídas.</div>
                   </div>
                 </div>
 

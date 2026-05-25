@@ -5,7 +5,9 @@
       "Bash(Select-Object FullName, PSIsContainer)",
       "Bash(Sort-Object FullName)",
       "Bash(npm run *)",
-      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\Arklok\\\\OneDrive\\\\Documentos\\\\sistemaprova\\\\scripts\")"
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\Arklok\\\\OneDrive\\\\Documentos\\\\sistemaprova\\\\scripts\")",
+      "PowerShell(docker stop evolution-api)",
+      "PowerShell(docker rm evolution-api)"
     ]
   }
 }

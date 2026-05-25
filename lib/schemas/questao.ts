@@ -25,25 +25,25 @@ export const questaoBaseInputSchema = baseQuestaoSchema.extend({
 export const questaoVerdFalsoSchema = baseQuestaoSchema.extend({
   tipo: z.literal('verdadeiro_falso'),
   resposta_correta: z.boolean(),
-  alternativas: z.undefined(),
-  limite_linhas_min: z.undefined(),
-  limite_linhas_max: z.undefined(),
-  criterios_avaliacao: z.undefined()
+  alternativas: z.any().optional().nullable(),
+  limite_linhas_min: z.any().optional().nullable(),
+  limite_linhas_max: z.any().optional().nullable(),
+  criterios_avaliacao: z.any().optional().nullable()
 });
 
 export const questaoMultiplaSchema = baseQuestaoSchema.extend({
   tipo: z.literal('multipla_escolha'),
   resposta_correta: z.string().min(1),
   alternativas: z.array(alternativaSchema).min(2),
-  limite_linhas_min: z.undefined(),
-  limite_linhas_max: z.undefined(),
-  criterios_avaliacao: z.undefined()
+  limite_linhas_min: z.any().optional().nullable(),
+  limite_linhas_max: z.any().optional().nullable(),
+  criterios_avaliacao: z.any().optional().nullable()
 });
 
 export const questaoRedacaoSchema = baseQuestaoSchema.extend({
   tipo: z.literal('redacao'),
-  resposta_correta: z.null().optional(),
-  alternativas: z.undefined(),
+  resposta_correta: z.any().optional().nullable(),
+  alternativas: z.any().optional().nullable(),
   limite_linhas_min: z.number().int().positive().optional().nullable(),
   limite_linhas_max: z.number().int().positive().optional().nullable(),
   criterios_avaliacao: z.array(z.string()).min(1)
@@ -58,7 +58,7 @@ export const questaoInputSchema = z.discriminatedUnion('tipo', [
 export const importPayloadSchema = z.object({
   metadata: z.object({
     fonte: z.string().optional(),
-    banca: z.array(z.string()).optional(),
+    banca: z.any().optional(),
     total_questoes: z.number().optional()
   }).optional(),
   concursos_sugeridos: z.array(z.object({

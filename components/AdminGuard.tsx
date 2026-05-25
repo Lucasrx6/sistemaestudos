@@ -11,13 +11,15 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   useEffect(() => {
     const supabase = getSupabaseClient();
     supabase.auth.getSession().then(({ data }) => {
-      const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-      if (!adminEmail || !data.session?.user?.email) {
+      const adminEmailsStr = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+      if (!adminEmailsStr || !data.session?.user?.email) {
         setAuthorized(false);
         return;
       }
 
-      if (data.session.user.email !== adminEmail) {
+      const adminEmails = adminEmailsStr.split(',').map(e => e.trim());
+
+      if (!adminEmails.includes(data.session.user.email)) {
         setAuthorized(false);
         return;
       }

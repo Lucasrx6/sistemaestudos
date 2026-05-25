@@ -17,6 +17,8 @@ type Questao = {
   limite_linhas_min?: number | null;
   limite_linhas_max?: number | null;
   criterios_avaliacao?: string[] | null;
+  resposta_correta?: string | boolean | null;
+  resposta_correta_boolean?: boolean | null;
 };
 
 type EnvioInfo = {
@@ -39,7 +41,7 @@ export default function ResponderPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [respostas, setRespostas] = useState<Record<string, string>>({});
   const [enviando, setEnviando] = useState(false);
-  const [feedbacks, setFeedbacks] = useState<Record<string, { correta: boolean | null; message: string }>>({});
+  const [feedbacks, setFeedbacks] = useState<Record<string, { correta: boolean | null; message: string; explicacao?: string | null }>>({});
   const [feedback, setFeedback] = useState<string | null>(null);
 
   useEffect(() => {
@@ -92,7 +94,10 @@ export default function ResponderPage() {
         } else {
           message = 'Resposta incorreta.';
         }
-        setFeedbacks((prev) => ({ ...prev, [questaoAtual.id]: { correta: data.correta ?? null, message } }));
+        setFeedbacks((prev) => ({
+          ...prev,
+          [questaoAtual.id]: { correta: data.correta ?? null, message, explicacao: data.explicacao ?? null }
+        }));
         setFeedback(message);
       }
     } catch {
@@ -272,11 +277,22 @@ export default function ResponderPage() {
                 </div>
               )}
 
-              {feedback && (
-                <div className={`alert ${feedbacks[questaoAtual.id]?.correta === true ? 'alert-success' : feedbacks[questaoAtual.id]?.correta === false ? 'alert-danger' : 'alert-info'} mb-3`}>
-                  {feedback}
-                </div>
-              )}
+              {feedback && (() => {
+                const fb = feedbacks[questaoAtual.id];
+                const isCorrect = fb?.correta === true;
+                const isWrong = fb?.correta === false;
+                return (
+                  <div className={`alert ${isCorrect ? 'alert-success' : isWrong ? 'alert-danger' : 'alert-info'} mb-3`}>
+                    <strong>{feedback}</strong>
+                    {fb?.explicacao && (
+                      <p className="mb-0 mt-1 small">
+                        <i className="fas fa-lightbulb me-1" />
+                        {fb.explicacao}
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
 
               <div className="d-flex gap-2">
                 {!jaRespondida ? (
