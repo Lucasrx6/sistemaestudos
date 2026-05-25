@@ -25,6 +25,12 @@ type Feedback = {
   explicacao?: string | null;
 };
 
+type SessaoSalva = {
+  questoes: Questao[];
+  currentIndex: number;
+  savedAt: number;
+};
+
 const nivelBadge: Record<string, string> = {
   basico: 'bg-success',
   intermediario: 'bg-warning text-dark',
@@ -33,21 +39,55 @@ const nivelBadge: Record<string, string> = {
 
 const tipoBadge: Record<string, { label: string; icon: string; cls: string }> = {
   verdadeiro_falso: { label: 'Verdadeiro/Falso', icon: 'fa-check-double', cls: 'bg-primary' },
-  multipla_escolha: { label: 'Múltipla Escolha', icon: 'fa-list-ul', cls: 'bg-info' },
+  multipla_escolha: { label: 'Múltipla Escolha', icon: 'fa-list-ul', cls: 'bg-info text-dark' },
   redacao: { label: 'Redação', icon: 'fa-pen-nib', cls: 'bg-secondary' }
 };
+
+const SESSAO_TTL_MS = 24 * 60 * 60 * 1000; // 24 horas
+
+function sessaoKey(userId: string) {
+  return `sistemaprova:sessao:${userId}`;
+}
+
+function salvarSessao(userId: string, questoes: Questao[], currentIndex: number) {
+  try {
+    const payload: SessaoSalva = { questoes, currentIndex, savedAt: Date.now() };
+    localStorage.setItem(sessaoKey(userId), JSON.stringify(payload));
+  } catch { /* localStorage indisponível */ }
+}
+
+function limparSessao(userId: string) {
+  try { localStorage.removeItem(sessaoKey(userId)); } catch { /* */ }
+}
+
+function lerSessao(userId: string): SessaoSalva | null {
+  try {
+    const raw = localStorage.getItem(sessaoKey(userId));
+    if (!raw) return null;
+    const parsed: SessaoSalva = JSON.parse(raw);
+    if (Date.now() - parsed.savedAt > SESSAO_TTL_MS) {
+      localStorage.removeItem(sessaoKey(userId));
+      return null;
+    }
+    if (!Array.isArray(parsed.questoes) || parsed.questoes.length === 0) return null;
+    // Só oferece retomar se ainda houver questões não respondidas
+    if (parsed.currentIndex >= parsed.questoes.length) return null;
+    return parsed;
+  } catch { return null; }
+}
 
 export default function EstudarPage() {
   const [questoes, setQuestoes] = useState<Questao[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [resposta, setResposta] = useState('');
-  const [loading, setLoading] = useState(true); // true desde o início evita flash de "sem questões"
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [session, setSession] = useState<{ userId: string; token: string } | null>(null);
   const [sessionado, setSessionado] = useState(false);
   const [cardAnim, setCardAnim] = useState<'' | 'acertou' | 'errou'>('');
-  const initialFetchDone = useRef(false); // evita double-fetch do StrictMode
+  const [sessaoSalva, setSessaoSalva] = useState<SessaoSalva | null>(null); // modal de retomada
+  const initialFetchDone = useRef(false);
 
   const questaoAtual = useMemo(() => questoes[currentIndex] ?? null, [questoes, currentIndex]);
   const progresso = useMemo(
@@ -59,19 +99,30 @@ export default function EstudarPage() {
     const supabase = getSupabaseClient();
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
-        setSession({ userId: data.session.user.id, token: data.session.access_token });
+        const s = { userId: data.session.user.id, token: data.session.access_token };
+        setSession(s);
+        // Verifica sessão salva antes de buscar novas questões
+        const salva = lerSessao(s.userId);
+        if (salva) {
+          setSessaoSalva(salva);
+          setLoading(false); // para de mostrar spinner enquanto o modal decide
+        }
+      } else {
+        setLoading(false);
       }
       setSessionado(true);
     });
   }, []);
 
-  const fetchQuestoes = async (token: string) => {
+  const fetchQuestoes = async (token: string, userId: string) => {
+    limparSessao(userId);
+    setSessaoSalva(null);
     setLoading(true);
     setError(null);
     setFeedback(null);
     setCardAnim('');
     try {
-      const response = await fetch(`/api/questoes/proximas`, {
+      const response = await fetch('/api/questoes/proximas', {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
@@ -80,9 +131,11 @@ export default function EstudarPage() {
         setQuestoes([]);
         return;
       }
-      setQuestoes(data.questoes || []);
+      const novasQuestoes = data.questoes || [];
+      setQuestoes(novasQuestoes);
       setCurrentIndex(0);
       setResposta('');
+      salvarSessao(userId, novasQuestoes, 0);
     } catch {
       setError('Erro ao carregar as questões. Tente novamente.');
     } finally {
@@ -92,10 +145,29 @@ export default function EstudarPage() {
 
   useEffect(() => {
     if (!session) return;
-    if (initialFetchDone.current) return; // StrictMode dispara o effect duas vezes — ignora a segunda
+    if (initialFetchDone.current) return;
     initialFetchDone.current = true;
-    fetchQuestoes(session.token);
+    // Se há sessão salva, o modal decide o que fazer — não busca automaticamente
+    const salva = lerSessao(session.userId);
+    if (!salva) fetchQuestoes(session.token, session.userId);
   }, [session]);
+
+  const retomar = () => {
+    if (!sessaoSalva) return;
+    setQuestoes(sessaoSalva.questoes);
+    setCurrentIndex(sessaoSalva.currentIndex);
+    setResposta('');
+    setFeedback(null);
+    setSessaoSalva(null);
+    setLoading(false);
+  };
+
+  const novaRodada = () => {
+    if (!session) return;
+    setSessaoSalva(null);
+    initialFetchDone.current = true; // evita re-trigger do useEffect
+    fetchQuestoes(session.token, session.userId);
+  };
 
   const handleSubmit = async () => {
     if (!questaoAtual || !session) return;
@@ -129,18 +201,13 @@ export default function EstudarPage() {
         message = 'Resposta incorreta. Não desanime, revise e tente novamente!';
       }
 
-      // Animação no card
       if (questaoAtual.tipo !== 'redacao') {
         const anim = data.correta ? 'acertou' : 'errou';
         setCardAnim(anim);
         setTimeout(() => setCardAnim(''), 800);
       }
 
-      setFeedback({
-        message,
-        correta: data.correta ?? null,
-        explicacao: questaoAtual.explicacao ?? null
-      });
+      setFeedback({ message, correta: data.correta ?? null, explicacao: questaoAtual.explicacao ?? null });
       setResposta('');
     } catch {
       setError('Erro ao enviar resposta. Tente novamente.');
@@ -150,11 +217,18 @@ export default function EstudarPage() {
   };
 
   const avancar = () => {
-    setCurrentIndex((i) => i + 1);
+    const proximo = currentIndex + 1;
+    setCurrentIndex(proximo);
     setResposta('');
     setFeedback(null);
     setError(null);
     setCardAnim('');
+    // Persiste posição após avançar
+    if (session && proximo < questoes.length) {
+      salvarSessao(session.userId, questoes, proximo);
+    } else if (session) {
+      limparSessao(session.userId); // rodada concluída
+    }
   };
 
   if (!sessionado) {
@@ -169,9 +243,45 @@ export default function EstudarPage() {
   }
 
   const tipoInfo = questaoAtual ? (tipoBadge[questaoAtual.tipo] ?? tipoBadge.redacao) : null;
+  const questoesRestantes = sessaoSalva
+    ? sessaoSalva.questoes.length - sessaoSalva.currentIndex
+    : 0;
 
   return (
     <main className="container py-4">
+
+      {/* ── Modal: retomar sessão ── */}
+      {sessaoSalva && (
+        <div
+          style={{
+            position: 'fixed', inset: 0, zIndex: 1050,
+            background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
+          }}
+        >
+          <div className="card shadow-lg" style={{ maxWidth: 420, width: '100%', borderRadius: 20 }}>
+            <div className="card-body p-4 text-center">
+              <div style={{ fontSize: 48, marginBottom: 8 }}>📖</div>
+              <h2 className="h5 fw-700 mb-2">Sessão em andamento</h2>
+              <p className="text-muted mb-1 small">
+                Você tinha uma rodada incompleta com
+              </p>
+              <p className="fw-700 text-primary mb-4" style={{ fontSize: '1.15rem' }}>
+                {questoesRestantes} questão{questoesRestantes !== 1 ? 'ões' : ''} restante{questoesRestantes !== 1 ? 's' : ''}
+              </p>
+              <div className="d-grid gap-2">
+                <button className="btn btn-primary btn-lg" onClick={retomar}>
+                  <i className="fas fa-play me-2" />Continuar de onde parei
+                </button>
+                <button className="btn btn-outline-secondary" onClick={novaRodada}>
+                  <i className="fas fa-redo me-2" />Começar nova rodada
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Cabeçalho */}
       <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <div>
@@ -183,7 +293,7 @@ export default function EstudarPage() {
         </div>
         <button
           className="btn btn-outline-secondary btn-sm"
-          onClick={() => session && fetchQuestoes(session.token)}
+          onClick={novaRodada}
           disabled={loading}
         >
           <i className="fas fa-sync-alt me-1" /> Nova rodada
@@ -206,11 +316,11 @@ export default function EstudarPage() {
 
         /* ── Rodada concluída ── */
         <div className="card text-center py-5 px-4">
-          <i className={`fas fa-trophy fa-4x text-warning mb-3 trophy-anim`} />
+          <i className="fas fa-trophy fa-4x text-warning mb-3 trophy-anim" />
           <h2 className="h3 fw-700 mb-1">Rodada concluída!</h2>
           <p className="text-muted mb-1">Você respondeu <strong>{questoes.length}</strong> questões nesta sessão.</p>
           <div className="d-flex justify-content-center gap-2 mt-4 flex-wrap">
-            <button className="btn btn-primary px-4" onClick={() => session && fetchQuestoes(session.token)}>
+            <button className="btn btn-primary px-4" onClick={novaRodada}>
               <i className="fas fa-redo me-2" />Nova rodada
             </button>
             <a className="btn btn-outline-secondary px-4" href="/dashboard">
@@ -226,7 +336,7 @@ export default function EstudarPage() {
           <i className="fas fa-inbox fa-3x text-muted mb-3" />
           <h2 className="h5 fw-700 mb-1">Nenhuma questão disponível</h2>
           <p className="text-muted small mb-4">Verifique se você configurou as provas ativas nas <a href="/configuracoes">Configurações</a>.</p>
-          <button className="btn btn-primary" onClick={() => session && fetchQuestoes(session.token)}>
+          <button className="btn btn-primary" onClick={novaRodada}>
             <i className="fas fa-sync-alt me-2" />Tentar novamente
           </button>
         </div>
@@ -248,7 +358,6 @@ export default function EstudarPage() {
 
           {/* Card da questão */}
           <div className={`questao-card card ${cardAnim}`}>
-            {/* Header */}
             <div className="card-header px-4 py-3 d-flex align-items-center gap-2 flex-wrap">
               {tipoInfo && (
                 <span className={`badge ${tipoInfo.cls} d-flex align-items-center gap-1`}>
@@ -269,17 +378,15 @@ export default function EstudarPage() {
             </div>
 
             <div className="card-body px-4 py-4">
-              {/* Enunciado */}
               <p className="fs-5 mb-4 lh-base" style={{ fontWeight: 500 }}>
                 {questaoAtual.enunciado}
               </p>
 
-              {/* ── Verdadeiro / Falso ── */}
               {questaoAtual.tipo === 'verdadeiro_falso' && !feedback && (
                 <div className="d-flex gap-3 mb-4">
                   {[
-                    { val: 'true',  label: 'Verdadeiro', icon: 'fa-check',     cls: 'vf-true' },
-                    { val: 'false', label: 'Falso',      icon: 'fa-times',     cls: 'vf-false' }
+                    { val: 'true',  label: 'Verdadeiro', icon: 'fa-check', cls: 'vf-true' },
+                    { val: 'false', label: 'Falso',      icon: 'fa-times', cls: 'vf-false' }
                   ].map(({ val, label, icon, cls }) => (
                     <button
                       key={val}
@@ -292,7 +399,6 @@ export default function EstudarPage() {
                 </div>
               )}
 
-              {/* ── Múltipla escolha ── */}
               {questaoAtual.tipo === 'multipla_escolha' && !feedback && (
                 <div className="mb-4">
                   {(questaoAtual.alternativas ?? []).map((alt) => (
@@ -307,7 +413,6 @@ export default function EstudarPage() {
                 </div>
               )}
 
-              {/* ── Redação ── */}
               {questaoAtual.tipo === 'redacao' && !feedback && (
                 <div className="mb-4">
                   {questaoAtual.criterios_avaliacao && questaoAtual.criterios_avaliacao.length > 0 && (
@@ -341,13 +446,9 @@ export default function EstudarPage() {
                 </div>
               )}
 
-              {/* ── Alternativas após feedback ── */}
               {feedback && questaoAtual.tipo === 'multipla_escolha' && (
                 <div className="mb-4">
                   {(questaoAtual.alternativas ?? []).map((alt) => {
-                    const respostaCorreta = questaoAtual.alternativas?.find(a =>
-                      feedback.correta === false && a.letra !== resposta
-                    );
                     let cls = '';
                     if (feedback.correta && alt.letra === resposta) cls = 'correta';
                     if (!feedback.correta && alt.letra === resposta) cls = 'errada';
@@ -364,11 +465,10 @@ export default function EstudarPage() {
                 </div>
               )}
 
-              {/* ── Feedback box ── */}
               {feedback && (
                 <div className={`feedback-box mb-4 ${feedback.correta === true ? 'correct' : feedback.correta === false ? 'incorrect' : 'neutral'}`}>
                   <span className="feedback-icon">
-                    {feedback.correta === true  ? '🎯' : feedback.correta === false ? '❌' : '📝'}
+                    {feedback.correta === true ? '🎯' : feedback.correta === false ? '❌' : '📝'}
                   </span>
                   <div>
                     <strong className="d-block mb-1">{feedback.message}</strong>
@@ -381,7 +481,6 @@ export default function EstudarPage() {
                 </div>
               )}
 
-              {/* ── Botões de ação ── */}
               <div className="d-flex gap-2 flex-wrap">
                 {!feedback ? (
                   <>
