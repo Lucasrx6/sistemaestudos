@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { importPayloadSchema, questaoInputSchema } from '@/lib/schemas/questao';
+import { sanitizeDeep } from '@/lib/utils/sanitize-text';
 
 export async function POST(request: NextRequest) {
-  const rawPayload = await request.json();
+  const rawPayload = sanitizeDeep(await request.json());
   const parsedPayload = importPayloadSchema.safeParse(rawPayload);
   if (!parsedPayload.success) {
     return NextResponse.json({ error: parsedPayload.error.flatten() }, { status: 400 });

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { sanitizeText } from '@/lib/utils/sanitize-text';
 
 const respostaSchema = z.object({
   usuario_id: z.string().uuid(),
@@ -79,6 +80,6 @@ export async function POST(request: NextRequest) {
     ok: true,
     resposta: respostaCriada,
     correta,
-    explicacao: questao.explicacao ?? null
+    explicacao: questao.explicacao ? sanitizeText(questao.explicacao) : null
   });
 }

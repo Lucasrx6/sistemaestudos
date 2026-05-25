@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { selecionarQuestoes } from '@/lib/utils/selecionar-questoes';
+import { sanitizeDeep } from '@/lib/utils/sanitize-text';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -26,7 +27,7 @@ export async function GET(request: NextRequest) {
   const usuarioId = userData.user.id;
 
   try {
-    const questoes = await selecionarQuestoes(usuarioId, limit);
+    const questoes = sanitizeDeep(await selecionarQuestoes(usuarioId, limit));
     return NextResponse.json({ ok: true, questoes });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Erro ao selecionar questões.';
