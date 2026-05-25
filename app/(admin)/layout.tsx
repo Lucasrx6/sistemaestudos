@@ -15,6 +15,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <p className="text-muted mb-0">Gerencie questões, concursos e importações.</p>
           </div>
           <nav className="d-flex flex-wrap gap-2 mt-3 mt-md-0">
+            <Link href="/dashboard" className="btn btn-primary btn-sm fw-bold">
+              <i className="fas fa-arrow-left me-1" /> Área do Usuário
+            </Link>
             <Link href="/admin/questoes" className="btn btn-outline-secondary btn-sm">Questões</Link>
             <Link href="/admin/concursos" className="btn btn-outline-secondary btn-sm">Concursos</Link>
             <Link href="/admin/importar" className="btn btn-outline-secondary btn-sm">Importar JSON</Link>

@@ -1,4 +1,5 @@
 import AuthGuard from '@/components/AuthGuard';
+import AdminLink from '@/components/AdminLink';
 import Link from 'next/link';
 
 export const metadata = {
@@ -20,6 +21,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             <Link href="/redacao" className="btn btn-outline-secondary btn-sm">Redação</Link>
             <Link href="/estatisticas" className="btn btn-outline-secondary btn-sm">Estatísticas</Link>
             <Link href="/configuracoes" className="btn btn-outline-secondary btn-sm">Configurações</Link>
+            <AdminLink />
           </nav>
         </header>
         {children}
