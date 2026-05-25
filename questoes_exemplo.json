@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "fonte": "Banco de provas exemplo",
+    "banca": ["CESPE", "FCC"],
+    "total_questoes": 3
+  },
+  "concursos_sugeridos": [
+    { "slug": "policia-2025", "nome": "Polícia Civil 2025", "banca": "CESPE", "ano": 2025 }
+  ],
+  "questoes": [
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "A Constituição Federal de 1988 assegura o direito à educação para todos.",
+      "resposta_correta": true,
+      "explicacao": "A CF/88 prevê educação como direito social.",
+      "disciplina": "Direito Constitucional",
+      "assunto": "Direitos Fundamentais",
+      "nivel": "basico",
+      "concursos": ["policia-2025"],
+      "fonte": "Questão exemplo",
+      "tags": ["educação", "direitos"]
+    },
+    {
+      "tipo": "multipla_escolha",
+      "enunciado": "Qual alternativa apresenta corretamente o princípio da publicidade?",
+      "resposta_correta": "B",
+      "alternativas": [
+        { "letra": "A", "texto": "A administração pública deve agir em sigilo." },
+        { "letra": "B", "texto": "Os atos administrativos devem ser públicos." },
+        { "letra": "C", "texto": "A publicidade é dispensável em licitações." }
+      ],
+      "explicacao": "O princípio da publicidade exige transparência dos atos administrativos.",
+      "disciplina": "Direito Administrativo",
+      "assunto": "Princípios",
+      "nivel": "intermediario",
+      "concursos": ["policia-2025"],
+      "fonte": "Questão exemplo",
+      "tags": ["publicidade", "administração"]
+    },
+    {
+      "tipo": "redacao",
+      "enunciado": "Redija uma proposta de comentário sobre ética e tecnologia no serviço público.",
+      "resposta_correta": null,
+      "explicacao": "",
+      "disciplina": "Redação",
+      "assunto": "Ética Pública",
+      "nivel": "avancado",
+      "concursos": ["policia-2025"],
+      "fonte": "Questão exemplo",
+      "tags": ["ética", "tecnologia"],
+      "limite_linhas_min": 20,
+      "limite_linhas_max": 30,
+      "criterios_avaliacao": ["adequação", "coerência", "norma culta", "argumentação"]
+    }
+  ]
+}

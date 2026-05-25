@@ -1,0 +1,427 @@
+{
+  "metadata": {
+    "fonte": "Prova Quadrix/2022 - SEDF (Apostila 23) + ABIN/2018 Oficial de Inteligência Área Pedagogia (Apostila 25)",
+    "banca": ["Quadrix", "Cespe/Cebraspe"],
+    "total_questoes": 30
+  },
+  "concursos_sugeridos": [
+    {
+      "slug": "sedf-2023",
+      "nome": "SEDF - Professor de Educação Básica",
+      "banca": "Quadrix",
+      "ano": 2023
+    },
+    {
+      "slug": "abin-2018-pedagogia",
+      "nome": "ABIN - Oficial de Inteligência (Pedagogia)",
+      "banca": "Cespe/Cebraspe",
+      "ano": 2018
+    }
+  ],
+  "questoes": [
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "De acordo com o texto, em comparação com as maiores economias do mundo, o Brasil é um país desigual.",
+      "resposta_correta": true,
+      "explicacao": "O texto afirma explicitamente que 'o Brasil é um país desigual' em comparação com as maiores economias do mundo.",
+      "disciplina": "Português - Interpretação de Texto",
+      "assunto": "Compreensão textual",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 1",
+      "tags": ["interpretacao", "compreensao"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "É correto afirmar, a partir da leitura do texto, que o processo de naturalização das desigualdades cria a falsa ideia de que elas são intrínsecas à sociedade.",
+      "resposta_correta": true,
+      "explicacao": "O texto afirma que 'as desigualdades são compreendidas e tratadas como um destino contra o qual não há o que fazer, como inerentes a qualquer sociedade'.",
+      "disciplina": "Português - Interpretação de Texto",
+      "assunto": "Inferência textual",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 2",
+      "tags": ["interpretacao", "inferencia"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "A partir da explicação do conceito de interseccionalidade, é correto concluir que uma só pessoa pode sofrer as consequências estruturais e dinâmicas da interação entre vários eixos de discriminação.",
+      "resposta_correta": true,
+      "explicacao": "O conceito de interseccionalidade, citado por Kimberlé Crenshaw no texto, trata exatamente da interação entre múltiplos eixos de discriminação sobre um mesmo sujeito.",
+      "disciplina": "Português - Interpretação de Texto",
+      "assunto": "Interseccionalidade",
+      "nivel": "intermediario",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 4",
+      "tags": ["interpretacao", "sociologia"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Um trojan aparenta ser um programa legítimo, no entanto ele contém um código malicioso que pode roubar informações do usuário de computador.",
+      "resposta_correta": true,
+      "explicacao": "Definição correta de trojan (cavalo de troia): malware disfarçado de software legítimo.",
+      "disciplina": "Informática",
+      "assunto": "Segurança da Informação - Malware",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 14",
+      "tags": ["seguranca", "malware"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "No Word 2016, o recurso permite mesclar apenas horizontalmente as células da tabela, já que não é possível combinar duas ou mais células localizadas na mesma coluna.",
+      "resposta_correta": false,
+      "explicacao": "É possível mesclar células tanto horizontalmente quanto verticalmente no Word 2016.",
+      "disciplina": "Informática",
+      "assunto": "Microsoft Word",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 18",
+      "tags": ["word", "office"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "A URL (Uniform Resource Locator) é um endereço da web, informado pelo usuário, via navegador, que aponta somente para um site, já que, de acordo com as normas da Internet, ela não pode ser apontada para um arquivo específico.",
+      "resposta_correta": false,
+      "explicacao": "URLs podem apontar para arquivos específicos (ex: https://site.com/documento.pdf).",
+      "disciplina": "Informática",
+      "assunto": "Internet - URL",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 20",
+      "tags": ["internet", "url"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "JPEG, GIF e PNG são alguns dos formatos padronizados para o armazenamento de imagens.",
+      "resposta_correta": true,
+      "explicacao": "Todos os três são formatos padronizados de imagem amplamente utilizados.",
+      "disciplina": "Informática",
+      "assunto": "Formatos de arquivo",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 21",
+      "tags": ["arquivos", "imagens"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "O servidor responde penal, civil e administrativamente pelo exercício irregular de suas atribuições.",
+      "resposta_correta": true,
+      "explicacao": "Princípio da tríplice responsabilidade do servidor público, previsto na LC 840/2011.",
+      "disciplina": "Legislação - LC 840/2011",
+      "assunto": "Regime jurídico dos servidores DF",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 23",
+      "tags": ["servidores", "responsabilidade"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Imperatividade é o atributo pelo qual os atos administrativos se impõem a terceiros, independentemente de sua concordância.",
+      "resposta_correta": true,
+      "explicacao": "Definição correta de imperatividade, um dos atributos do ato administrativo.",
+      "disciplina": "Direito Administrativo",
+      "assunto": "Atos administrativos - Atributos",
+      "nivel": "basico",
+      "concursos": ["sedf-2023", "abin-2018-pedagogia"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 30",
+      "tags": ["direito", "atos"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "A autoexecutoriedade consiste em um atributo pelo qual o ato administrativo pode ser posto em execução pela própria Administração Pública, bastando, para isso, a simples chancela de sua legalidade pelo Poder Judiciário.",
+      "resposta_correta": false,
+      "explicacao": "A autoexecutoriedade independe de chancela do Judiciário - o ato é executado diretamente pela Administração.",
+      "disciplina": "Direito Administrativo",
+      "assunto": "Atos administrativos - Atributos",
+      "nivel": "intermediario",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 31",
+      "tags": ["direito", "atos"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "A educação, direito de todos e dever do Estado e da família, será promovida e incentivada com a colaboração da sociedade, visando ao pleno desenvolvimento da pessoa, a seu preparo para o exercício da cidadania e a sua qualificação para o trabalho.",
+      "resposta_correta": true,
+      "explicacao": "Transcrição literal do art. 205 da CF/88.",
+      "disciplina": "Constituição Federal",
+      "assunto": "Educação - Art. 205",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 41",
+      "tags": ["constituicao", "educacao"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Para efeitos legais, considera-se como criança a pessoa de até dez anos de idade incompletos e como adolescente a pessoa entre dez e dezoito anos de idade.",
+      "resposta_correta": false,
+      "explicacao": "Conforme art. 2º do ECA: criança é até 12 anos incompletos e adolescente entre 12 e 18 anos.",
+      "disciplina": "Legislação - ECA",
+      "assunto": "Definições legais",
+      "nivel": "basico",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 49",
+      "tags": ["eca", "crianca"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "É proibida a oferta de trabalho a menores de quatorze anos de idade, inclusive na condição de aprendiz.",
+      "resposta_correta": false,
+      "explicacao": "É permitido o trabalho a partir dos 14 anos na condição de aprendiz, conforme art. 60 do ECA.",
+      "disciplina": "Legislação - ECA",
+      "assunto": "Trabalho do menor",
+      "nivel": "intermediario",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 55",
+      "tags": ["eca", "trabalho"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Vygotsky, um dos teóricos da psicologia histórico-cultural, postula que todo o processo de aprendizagem é uma fonte de desenvolvimento que ativa numerosos processos, os quais não poderiam desenvolver-se por si mesmos sem a aprendizagem.",
+      "resposta_correta": true,
+      "explicacao": "Fundamento da teoria histórico-cultural de Vygotsky: aprendizagem precede e impulsiona o desenvolvimento.",
+      "disciplina": "Pedagogia",
+      "assunto": "Teorias da aprendizagem - Vygotsky",
+      "nivel": "intermediario",
+      "concursos": ["sedf-2023", "abin-2018-pedagogia"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 81",
+      "tags": ["vygotsky", "aprendizagem"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Para Piaget, as experiências de aprendizagem e as interações contribuem para o desenvolvimento mental. Todavia, elas não são essenciais para esse tipo de desenvolvimento, pois as qualidades mentais inatas já existem.",
+      "resposta_correta": false,
+      "explicacao": "Piaget é interacionista - as experiências e interações são essenciais para o desenvolvimento mental.",
+      "disciplina": "Pedagogia",
+      "assunto": "Teorias da aprendizagem - Piaget",
+      "nivel": "intermediario",
+      "concursos": ["sedf-2023", "abin-2018-pedagogia"],
+      "fonte": "Prova Quadrix/2022 - SEDF - Questão 82",
+      "tags": ["piaget", "aprendizagem"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Planejar é, sobretudo, preencher formulários para o controle administrativo da ação educativa.",
+      "resposta_correta": false,
+      "explicacao": "Planejar é um processo de racionalização e organização da ação docente, não mero preenchimento burocrático.",
+      "disciplina": "Pedagogia",
+      "assunto": "Planejamento de ensino",
+      "nivel": "basico",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 61",
+      "tags": ["planejamento", "docencia"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "O planejamento independe do nível de preparo e das condições socioculturais e individuais dos alunos.",
+      "resposta_correta": false,
+      "explicacao": "Ao contrário - o planejamento DEVE considerar essas condições para ser efetivo.",
+      "disciplina": "Pedagogia",
+      "assunto": "Planejamento de ensino",
+      "nivel": "basico",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 62",
+      "tags": ["planejamento"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Faz parte do planejamento de ensino selecionar material didático, identificar tarefas a serem executadas pelo professor e pelos alunos e replanejar o trabalho docente conforme situações ocorridas nas aulas.",
+      "resposta_correta": true,
+      "explicacao": "Definição correta das atividades que compõem o planejamento de ensino.",
+      "disciplina": "Pedagogia",
+      "assunto": "Planejamento de ensino",
+      "nivel": "basico",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 63",
+      "tags": ["planejamento"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Didática e metodologia de ensino são conceitos idênticos.",
+      "resposta_correta": false,
+      "explicacao": "Didática é mais ampla - estuda o processo de ensino como um todo. Metodologia é um dos componentes da didática.",
+      "disciplina": "Pedagogia",
+      "assunto": "Didática",
+      "nivel": "basico",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 71",
+      "tags": ["didatica"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "É papel da didática indicar princípios e diretrizes que regulem a ação docente.",
+      "resposta_correta": true,
+      "explicacao": "Função clássica da didática como teoria do ensino.",
+      "disciplina": "Pedagogia",
+      "assunto": "Didática",
+      "nivel": "basico",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 74",
+      "tags": ["didatica"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "Na taxonomia dos objetivos cognitivos, os níveis de organização dos processos mentais estão em uma relação de interdependência, do mais simples para o mais complexo.",
+      "resposta_correta": false,
+      "explicacao": "A relação na taxonomia de Bloom é hierárquica/cumulativa, não de interdependência.",
+      "disciplina": "Pedagogia",
+      "assunto": "Taxonomia de Bloom",
+      "nivel": "intermediario",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 81",
+      "tags": ["bloom", "taxonomia"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "A taxonomia proposta por Bloom se resume a um esquema de classificação hierárquica dos processos cognitivos de acordo com níveis de complexidade e objetivos do desenvolvimento cognitivo.",
+      "resposta_correta": true,
+      "explicacao": "Definição correta da taxonomia de Bloom.",
+      "disciplina": "Pedagogia",
+      "assunto": "Taxonomia de Bloom",
+      "nivel": "intermediario",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 82",
+      "tags": ["bloom", "taxonomia"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "A andragogia cuida de orientar crianças e adolescentes com dificuldade de aprendizagem a partir de suas experiências de vida, sua esfera de atividade e aplicabilidade real da tarefa na sua vida profissional.",
+      "resposta_correta": false,
+      "explicacao": "Andragogia é a educação de adultos, não de crianças e adolescentes (que é a pedagogia).",
+      "disciplina": "Pedagogia",
+      "assunto": "Andragogia",
+      "nivel": "basico",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 91",
+      "tags": ["andragogia", "adultos"]
+    },
+    {
+      "tipo": "verdadeiro_falso",
+      "enunciado": "A educação a distância (ou virtual) caracteriza-se por ser um método de ensino e aprendizado desprovido de momentos presenciais.",
+      "resposta_correta": false,
+      "explicacao": "EaD pode ter momentos presenciais obrigatórios, como avaliações in loco e práticas laboratoriais.",
+      "disciplina": "Pedagogia",
+      "assunto": "Educação a Distância",
+      "nivel": "basico",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova ABIN/2018 - Pedagogia - Questão 128",
+      "tags": ["ead"]
+    },
+    {
+      "tipo": "multipla_escolha",
+      "enunciado": "Sobre o conceito de interseccionalidade desenvolvido por Kimberlé Crenshaw, é correto afirmar que:",
+      "alternativas": [
+        {"letra": "A", "texto": "Trata de discriminações isoladas, focando em um único eixo de opressão por vez."},
+        {"letra": "B", "texto": "Refere-se exclusivamente à discriminação de gênero contra mulheres brancas."},
+        {"letra": "C", "texto": "Evidencia as consequências estruturais e dinâmicas da interação entre dois ou mais eixos de discriminação."},
+        {"letra": "D", "texto": "É um conceito utilizado apenas na sociologia europeia do século XIX."},
+        {"letra": "E", "texto": "Defende que raça e classe são marcadores independentes que não se cruzam."}
+      ],
+      "resposta_correta": "C",
+      "explicacao": "Conforme o texto: 'A interseccionalidade é uma conceituação do problema que evidencia as consequências estruturais e dinâmicas da interação entre dois ou mais eixos da discriminação.'",
+      "disciplina": "Sociologia",
+      "assunto": "Interseccionalidade",
+      "nivel": "intermediario",
+      "concursos": ["sedf-2023"],
+      "fonte": "Adaptado da Prova Quadrix/2022 - SEDF",
+      "tags": ["sociologia", "discriminacao"]
+    },
+    {
+      "tipo": "multipla_escolha",
+      "enunciado": "Sobre as fases do planejamento de ensino, qual sequência representa corretamente a metodologia da pedagogia histórico-crítica?",
+      "alternativas": [
+        {"letra": "A", "texto": "Diagnóstico → Planejamento → Execução → Avaliação"},
+        {"letra": "B", "texto": "Prática social inicial → Problematização → Instrumentalização → Catarse → Prática social final"},
+        {"letra": "C", "texto": "Reação → Aprendizado → Aplicação → Resultados"},
+        {"letra": "D", "texto": "Sensibilização → Conceitualização → Aplicação → Generalização"},
+        {"letra": "E", "texto": "Observação → Hipótese → Experimentação → Conclusão"}
+      ],
+      "resposta_correta": "B",
+      "explicacao": "A pedagogia histórico-crítica preconiza cinco passos: prática social inicial do conteúdo, problematização, instrumentalização, catarse e prática social final do conteúdo.",
+      "disciplina": "Pedagogia",
+      "assunto": "Pedagogia histórico-crítica",
+      "nivel": "avancado",
+      "concursos": ["sedf-2023", "abin-2018-pedagogia"],
+      "fonte": "Adaptado da Prova Quadrix/2022 - SEDF - Questão 109",
+      "tags": ["pedagogia", "saviani"]
+    },
+    {
+      "tipo": "multipla_escolha",
+      "enunciado": "Sobre o conceito de Zona de Desenvolvimento Proximal (ZDP) de Vygotsky, marque a alternativa correta:",
+      "alternativas": [
+        {"letra": "A", "texto": "Representa o nível de desenvolvimento já consolidado pelo aluno, sem necessidade de mediação."},
+        {"letra": "B", "texto": "Refere-se às habilidades que o aluno nunca poderá desenvolver, mesmo com auxílio."},
+        {"letra": "C", "texto": "É a distância entre o desenvolvimento real e o desenvolvimento potencial, mediado pela interação."},
+        {"letra": "D", "texto": "Corresponde apenas ao desenvolvimento biológico e maturacional da criança."},
+        {"letra": "E", "texto": "É um conceito da pedagogia tradicional que ignora a mediação social."}
+      ],
+      "resposta_correta": "C",
+      "explicacao": "A ZDP é definida por Vygotsky como a distância entre o nível de desenvolvimento real (o que a criança consegue fazer sozinha) e o nível de desenvolvimento potencial (o que consegue fazer com auxílio).",
+      "disciplina": "Pedagogia",
+      "assunto": "Vygotsky - ZDP",
+      "nivel": "intermediario",
+      "concursos": ["sedf-2023", "abin-2018-pedagogia"],
+      "fonte": "Adaptado das Provas SEDF e ABIN",
+      "tags": ["vygotsky", "zdp"]
+    },
+    {
+      "tipo": "redacao",
+      "enunciado": "Considerando que o fragmento de texto a seguir tem caráter motivador, redija um texto dissertativo acerca do tema 'Sala de aula: local de construção coletiva do conhecimento'.\n\nTexto motivador: 'A ação do educador humanista, identificando-se, desde logo, com a dos educandos, deve orientar-se no sentido da humanização de ambos.' (Paulo Freire, Pedagogia do oprimido).\n\nAborde necessariamente: (a) diálogo como estratégia de construção do conhecimento em sala de aula; (b) papel do professor como mediador no processo de ensino e aprendizagem; (c) experiência vivida pelos educandos como tema gerador de aprendizagens significativas.",
+      "resposta_correta": null,
+      "limite_linhas_min": 20,
+      "limite_linhas_max": 30,
+      "criterios_avaliacao": [
+        "Adequação ao tema e ao tipo textual",
+        "Coerência e coesão",
+        "Domínio da norma culta",
+        "Abordagem dos três aspectos solicitados",
+        "Argumentação consistente"
+      ],
+      "disciplina": "Redação",
+      "assunto": "Dissertativo-argumentativo - Educação",
+      "nivel": "avancado",
+      "concursos": ["sedf-2023"],
+      "fonte": "Prova Discursiva Quadrix/2022 - SEDF",
+      "tags": ["redacao", "freire", "educacao"]
+    },
+    {
+      "tipo": "redacao",
+      "enunciado": "Redija um texto dissertativo sobre 'A utilização de novas tecnologias na educação a distância'. Aborde necessariamente: (1) histórico da EaD no Brasil; (2) novas tecnologias na educação; (3) desafio de associar as novas tecnologias às necessidades educacionais contemporâneas.",
+      "resposta_correta": null,
+      "limite_linhas_min": 30,
+      "limite_linhas_max": 60,
+      "criterios_avaliacao": [
+        "Domínio da modalidade escrita formal",
+        "Compreensão da proposta",
+        "Capacidade argumentativa",
+        "Abordagem dos três tópicos obrigatórios",
+        "Conhecimento sobre o tema (histórico EaD + tecnologias)"
+      ],
+      "disciplina": "Redação",
+      "assunto": "Dissertativo - EaD e Tecnologia",
+      "nivel": "avancado",
+      "concursos": ["abin-2018-pedagogia"],
+      "fonte": "Prova Discursiva ABIN/2018 - Pedagogia",
+      "tags": ["redacao", "ead", "tecnologia"]
+    },
+    {
+      "tipo": "redacao",
+      "enunciado": "Comente uma novidade ou notícia recente sobre educação pública brasileira. Apresente o fato, contextualize, expresse opinião fundamentada e proponha desdobramentos.",
+      "resposta_correta": null,
+      "limite_linhas_min": 15,
+      "limite_linhas_max": 30,
+      "criterios_avaliacao": [
+        "Atualidade do tema",
+        "Capacidade argumentativa",
+        "Norma culta",
+        "Coerência interna"
+      ],
+      "disciplina": "Redação",
+      "assunto": "Comentário crítico - Atualidades",
+      "nivel": "intermediario",
+      "concursos": ["sedf-2023", "abin-2018-pedagogia"],
+      "fonte": "Tema livre gerado pelo sistema (Groq)",
+      "tags": ["redacao", "atualidades", "livre"]
+    }
+  ]
+}

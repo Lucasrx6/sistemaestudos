@@ -1,0 +1,19 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Inter, system-ui, sans-serif;
+  background-color: #f8f9fa;
+}
+
+body {
+  color: #212529;
+}
+
+main {
+  padding: 1rem;
+}
+
+.container {
+  max-width: 1100px;
+}
